@@ -1,23 +1,17 @@
+import 'dart:html' as html;
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const Connect2YT());
+  runApp(const Connect2Video());
 }
 
-class ButtonItem {
-  bool onSelect;
-  String title;
-
-  ButtonItem(this.onSelect, this.title);
-}
-
-class Connect2YT extends StatelessWidget {
-  const Connect2YT({super.key});
+class Connect2Video extends StatelessWidget {
+  const Connect2Video({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Connect2YT',
+      title: 'Connect2Video',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -36,13 +30,10 @@ class YouTubeDownloader extends StatefulWidget {
 }
 
 class _YouTubeDownloaderState extends State<YouTubeDownloader> {
-  String ytRegex = r'^((?:https:)?\/\/)?((:www)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$';
+  bool processing = false;
+  String baseURL = "http://mothra.life.nctu.edu.tw:9487";
+  RegExp validUrl = RegExp(r"https?://(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)");
   TextEditingController urlInput = TextEditingController(text: "");
-  List<ButtonItem> typeSelector = [
-    ButtonItem(true, "Sound + Video (Default)"),
-    ButtonItem(false, "Sound Only"),
-    ButtonItem(false, "Video Only"),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -54,74 +45,32 @@ class _YouTubeDownloaderState extends State<YouTubeDownloader> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Youtube downloader", style: TextStyle(fontSize: 30)),
+              Text("Video downloader", style: TextStyle(fontSize: 30)),
               const SizedBox(height: 40),
-              Text("Step 1 : Input a YouTube share link", style: TextStyle(fontSize: 20)),
+              Text("Input A share link of video", style: TextStyle(fontSize: 20)),
               const SizedBox(height: 20),
-              TextField(
-                autofocus: true,
-                controller: urlInput,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Paste URL here',
+              Container(
+                constraints: BoxConstraints(maxWidth: 700),
+                child: TextField(
+                  autofocus: true,
+                  controller: urlInput,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Paste URL here ~',
+                  ),
                 ),
               ),
-              const SizedBox(height: 20),
-              Text("Step 2 : Output component", style: TextStyle(fontSize: 20)),
-              const SizedBox(height: 20),
-              Column(
-                children: typeSelector.map((val) {
-                  return InkWell(
-                    onTap: () {
-                      typeSelector.forEach((element) => element.onSelect = false);
-                      setState(() {
-                        val.onSelect = !val.onSelect;
-                      });
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 2),
-                      width: 240,
-                      child: Row(
-                        children: [
-                          val.onSelect ? Icon(Icons.check_box_outlined) : Icon(Icons.check_box_outline_blank),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Text(val.title, style: TextStyle(fontSize: 17)),
-                        ],
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-              /*const SizedBox(height: 20),
-              Text("Step 3 : (Optional) Choose subtitle", style: TextStyle(fontSize: 20)),*/
               const SizedBox(height: 40),
               InkWell(
                 onTap: () {
-                  if (RegExp(ytRegex).hasMatch(urlInput.text)) {
-                    print(urlInput.text);
-                    for (var i in typeSelector) {
-                      if (i.onSelect) {
-                        print(i.title);
-                      }
-                    }
-                  } else {
+                  if (urlInput.text.isEmpty) {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: const Text("Invalid URL"),
-                          content: Text("Please retype URL\nexample:\nhttps://youtu.be/ALZHF5UqnU4"),
+                          title: const Text("No content"),
+                          content: SelectableText("Please type a URL\nexample:\nhttps://youtu.be/ALZHF5UqnU4"),
                           actions: [
-                            TextButton(
-                              child: const Text('Clear'),
-                              onPressed: () {
-                                setState(() {
-                                  urlInput.text = "";
-                                });
-                              },
-                            ),
                             TextButton(
                               child: const Text('OK'),
                               onPressed: () {
@@ -132,6 +81,39 @@ class _YouTubeDownloaderState extends State<YouTubeDownloader> {
                         );
                       },
                     );
+                  } else {
+                    if (validUrl.hasMatch(urlInput.text)) {
+                      var fileUri = baseURL + "/video?url=${urlInput.text}";
+                      html.AnchorElement anchorElement = html.AnchorElement(href: fileUri);
+                      anchorElement.download = fileUri;
+                      anchorElement.click();
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text("Invalid URL"),
+                            content: SelectableText("Please type again\nexample:\nhttps://youtu.be/ALZHF5UqnU4"),
+                            actions: [
+                              TextButton(
+                                child: const Text('Clear'),
+                                onPressed: () {
+                                  setState(() {
+                                    urlInput.text = "";
+                                  });
+                                },
+                              ),
+                              TextButton(
+                                child: const Text('OK'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
                   }
                 },
                 child: Container(
@@ -144,7 +126,7 @@ class _YouTubeDownloaderState extends State<YouTubeDownloader> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Download now !", style: TextStyle(fontSize: 20)),
+                      processing ? CircularProgressIndicator() : Text("Download now !", style: TextStyle(fontSize: 20)),
                       SizedBox(width: 15),
                       Icon(Icons.download, size: 40),
                     ],
