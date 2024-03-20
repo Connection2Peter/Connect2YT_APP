@@ -2,6 +2,6 @@
 
 An easy video downloader written by Flutter
 
-## Domo page
+## Demo page
 
 ### [VideoDemo](http://mothra.life.nctu.edu.tw/videodemo/#/)
