@@ -1,7 +1,12 @@
 # Video Downloder
+### An video downloader written by Flutter
 
-An easy video downloader written by Flutter
+## Demo
+### [videodemo (Back-end not working now)](http://mothra.life.nctu.edu.tw/videodemo/#/)
 
-## Demo page
+## Download
+- ```git clone https://github.com/ConnectionOuOb/Video-Downloder.git```
 
-### [VideoDemo](http://mothra.life.nctu.edu.tw/videodemo/#/)
+## Build
+### English link
+- ```flutter build web --base-href "/videodemo/"```
