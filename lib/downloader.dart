@@ -23,8 +23,6 @@ class _YouTubeDownloaderState extends State<YouTubeDownloader> {
             children: [
               Text("title".tr(), style: TextStyle(fontSize: 30)),
               const SizedBox(height: 40),
-              Text("Input A share link of video", style: TextStyle(fontSize: 20)),
-              const SizedBox(height: 20),
               Container(
                 constraints: BoxConstraints(maxWidth: 700),
                 child: TextField(
@@ -32,7 +30,7 @@ class _YouTubeDownloaderState extends State<YouTubeDownloader> {
                   controller: urlInput,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: 'Paste URL here ~',
+                    hintText: "input_hint".tr(),
                   ),
                 ),
               ),
