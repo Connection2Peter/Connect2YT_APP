@@ -1,6 +1,8 @@
 import 'style.dart';
 import 'config.dart';
+import 'io/exec.dart';
 import 'io/picker.dart';
+import 'ui/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -85,7 +87,15 @@ class _YouTubeDownloaderState extends State<YouTubeDownloader> {
 
   Widget step3RunDownloader() {
     return TextButton.icon(
-      onPressed: () {},
+      onPressed: () {
+        runYtDlp(urlInput.text, saveFolder).then(
+          (value) => showResult(
+            context,
+            value ? "download_fail".tr() : "download_success".tr(),
+            value ? "download_fail_message".tr() : "download_success_message".tr(),
+          ),
+        );
+      },
       label: Text("download".tr()),
       style: buttonStyle(),
       icon: Icon(Icons.download),

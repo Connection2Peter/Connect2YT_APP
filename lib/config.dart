@@ -5,3 +5,7 @@ const Map<String, Locale> supportedLocales = {
   "中文": Locale('zh', 'TW'),
   "English": Locale('en', 'US'),
 };
+
+// # Program
+String binFolder = "ConnectionYT-DLP";
+String binWindows = "assets/bin/Windows_x64/";

@@ -2,5 +2,10 @@
   "title": "Video Downloader",
   "input_hint": "Please enter the share URL of video",
   "select_folder": "Please select a folder you want to save video",
-  "download": "Download"
+  "download": "Download",
+  "download_success": "Download success",
+  "download_success_message": "Download success, please check the folder",
+  "download_fail": "Download fail",
+  "download_fail_message": "Download fail, please try again.",
+  "ok": "OK"
 }
