@@ -1,3 +1,4 @@
+import 'config.dart';
 import 'downloader.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -6,7 +7,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
-  runApp(const VideoDownloader());
+  runApp(
+    EasyLocalization(
+      supportedLocales: supportedLocales.values.toList(),
+      path: 'assets/translations',
+      startLocale: supportedLocales.values.first,
+      child: const VideoDownloader(),
+    ),
+  );
 }
 
 class VideoDownloader extends StatelessWidget {
@@ -17,6 +25,9 @@ class VideoDownloader extends StatelessWidget {
     return MaterialApp(
       title: 'Video Downloader',
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       home: const YouTubeDownloader(),
     );
   }

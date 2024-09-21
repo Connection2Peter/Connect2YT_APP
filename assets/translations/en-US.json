@@ -1,4 +1,5 @@
 {
   "title": "Video Downloader",
-  "input_hint": "Enter video URL"
+  "input_hint": "Please enter the share URL of video",
+  "download": "Download"
 }

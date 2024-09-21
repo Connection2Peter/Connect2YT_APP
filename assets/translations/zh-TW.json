@@ -1,4 +1,5 @@
 {
   "title": "影片下載器",
-  "input_hint": "輸入影片網址"
+  "input_hint": "請輸入影片的分享網址",
+  "download": "下載"
 }
