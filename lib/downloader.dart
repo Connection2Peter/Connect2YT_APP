@@ -1,4 +1,6 @@
+import 'style.dart';
 import 'config.dart';
+import 'io/picker.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -10,6 +12,7 @@ class YouTubeDownloader extends StatefulWidget {
 }
 
 class _YouTubeDownloaderState extends State<YouTubeDownloader> {
+  String saveFolder = "";
   TextEditingController urlInput = TextEditingController(text: "");
 
   @override
@@ -32,43 +35,60 @@ class _YouTubeDownloaderState extends State<YouTubeDownloader> {
             )
             .toList(),
       ),
-      body: Container(
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: currentWidth > 1200 ? currentWidth * 0.25 : currentWidth * 0.05),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: TextField(
-                autofocus: true,
-                controller: urlInput,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  hintText: "input_hint".tr(),
-                ),
-              ),
-            ),
-            const SizedBox(width: 20),
-            IconButton(
-              onPressed: () {},
-              tooltip: "download".tr(),
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all(EdgeInsets.all(15)),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.purple),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-              ),
-              icon: Icon(Icons.download),
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 50,
+            horizontal: currentWidth > 1200 ? currentWidth * 0.25 : currentWidth * 0.05,
+          ),
+          child: Column(
+            children: [
+              step1EnterUrl(),
+              const SizedBox(height: 30),
+              if (urlInput.text.isNotEmpty) step2SelectSaveFolder(),
+              const SizedBox(height: 30),
+              if (urlInput.text.isNotEmpty && saveFolder.isNotEmpty) step3RunDownloader()
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget step1EnterUrl() {
+    return TextField(
+      autofocus: true,
+      controller: urlInput,
+      onChanged: (value) {
+        setState(() {});
+      },
+      decoration: InputDecoration(
+        hintText: "input_hint".tr(),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+      ),
+    );
+  }
+
+  Widget step2SelectSaveFolder() {
+    return TextButton(
+      onPressed: () {
+        selectFolder().then((value) {
+          setState(() {
+            saveFolder = value;
+          });
+        });
+      },
+      style: buttonStyle(),
+      child: Text("select_folder".tr()),
+    );
+  }
+
+  Widget step3RunDownloader() {
+    return TextButton.icon(
+      onPressed: () {},
+      label: Text("download".tr()),
+      style: buttonStyle(),
+      icon: Icon(Icons.download),
     );
   }
 }

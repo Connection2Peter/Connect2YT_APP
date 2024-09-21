@@ -9,6 +9,7 @@ environment:
 
 dependencies:
   easy_localization: ^3.0.7
+  file_picker: ^8.0.5
   flutter:
     sdk: flutter
 
