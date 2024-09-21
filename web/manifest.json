@@ -1,6 +1,6 @@
 {
-    "name": "connect2yt_app",
-    "short_name": "connect2yt_app",
+    "name": "Video_Downloader",
+    "short_name": "Video_Downloader",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#hexcode",

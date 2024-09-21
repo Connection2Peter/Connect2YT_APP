@@ -91,7 +91,7 @@ class _YouTubeDownloaderState extends State<YouTubeDownloader> {
   Widget step3RunDownloader() {
     return TextButton.icon(
       onPressed: () {
-        EasyLoading.show(status: 'loading...');
+        EasyLoading.show(status: 'downloading'.tr());
 
         runYtDlp(urlInput.text, saveFolder).then(
           (value) {

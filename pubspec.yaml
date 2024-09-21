@@ -1,4 +1,4 @@
-name: video_downloader
+name: Video_Downloader
 description: Youtube videos downloader
 publish_to: 'none'
 
