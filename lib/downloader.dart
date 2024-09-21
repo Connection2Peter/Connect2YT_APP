@@ -5,6 +5,7 @@ import 'io/picker.dart';
 import 'ui/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class YouTubeDownloader extends StatefulWidget {
   const YouTubeDownloader({super.key});
@@ -48,6 +49,8 @@ class _YouTubeDownloaderState extends State<YouTubeDownloader> {
               step1EnterUrl(),
               const SizedBox(height: 30),
               if (urlInput.text.isNotEmpty) step2SelectSaveFolder(),
+              const SizedBox(height: 10),
+              if (saveFolder.isNotEmpty) Text(saveFolder),
               const SizedBox(height: 30),
               if (urlInput.text.isNotEmpty && saveFolder.isNotEmpty) step3RunDownloader()
             ],
@@ -88,12 +91,17 @@ class _YouTubeDownloaderState extends State<YouTubeDownloader> {
   Widget step3RunDownloader() {
     return TextButton.icon(
       onPressed: () {
+        EasyLoading.show(status: 'loading...');
+
         runYtDlp(urlInput.text, saveFolder).then(
-          (value) => showResult(
-            context,
-            value ? "download_fail".tr() : "download_success".tr(),
-            value ? "download_fail_message".tr() : "download_success_message".tr(),
-          ),
+          (value) {
+            EasyLoading.dismiss();
+            showResult(
+              context,
+              value ? "download_success".tr() : "download_fail".tr(),
+              value ? "download_success_message".tr() : "download_fail_message".tr(),
+            );
+          },
         );
       },
       label: Text("download".tr()),

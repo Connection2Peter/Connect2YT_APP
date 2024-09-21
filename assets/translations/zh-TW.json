@@ -2,6 +2,7 @@
   "title": "影片下載器",
   "input_hint": "請輸入影片的分享網址",
   "select_folder": "請選擇您想要儲存影片的資料夾",
+  "save_to": "儲存影片至：",
   "download": "下載",
   "download_success": "下載成功",
   "download_success_message": "下載成功，請看資料夾。",

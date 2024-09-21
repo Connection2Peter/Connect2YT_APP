@@ -11,5 +11,5 @@ Future<bool> runYtDlp(String url, String saveTo) async {
     ],
   );
 
-  return result.stdout.contains("ERROR");
+  return result.stderr.isEmpty;
 }
