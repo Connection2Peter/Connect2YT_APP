@@ -1,0 +1,13 @@
+{
+  "title": "影片下載器",
+  "input_hint": "請輸入影片的分享網址",
+  "select_folder": "請點我選擇您想要儲存影片的資料夾",
+  "save_to": "儲存影片至：",
+  "download": "下載",
+  "downloading": "下載中...",
+  "download_success": "下載成功",
+  "download_success_message": "下載成功，請看資料夾。",
+  "download_fail": "下載失敗",
+  "download_fail_message": "下載失敗，請確認網址或目錄後再試一次。",
+  "ok": "確定"
+}
