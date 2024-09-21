@@ -1,8 +1,8 @@
-name: connect2yt_app
-description: Youtube videos downloder
+name: video_downloader
+description: Youtube videos downloader
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.0
 
 environment:
   sdk: '>=3.0.6 <4.0.0'
@@ -17,5 +17,30 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: "^0.13.1"
+
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/translations/
+    - assets/bin/Windows_x64/
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png"
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "assets/images/logo.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/images/logo.png"
+    icon_size: 48
+  macos:
+    generate: true
+    image_path: "assets/images/logo.png"

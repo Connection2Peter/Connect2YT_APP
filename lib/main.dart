@@ -1,7 +1,9 @@
-import 'dart:html' as html;
 import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
   runApp(const Connect2Video());
 }
 
