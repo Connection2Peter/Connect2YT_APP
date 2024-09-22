@@ -8,7 +8,7 @@
 PRODUCT_NAME = Video-Downloader
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = mothra.life.nctu.edu.tw.connect2ytApp
+PRODUCT_BUNDLE_IDENTIFIER = connection.app.videoDownloader
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2023 mothra.life.nctu.edu.tw. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2023 connection.app. All rights reserved.

@@ -7,5 +7,17 @@ const Map<String, Locale> supportedLocales = {
 };
 
 // # Program
-String binFolder = "ConnectionYT-DLP";
-String binWindows = "assets/bin/Windows_x64/";
+String binFolder = "";
+String binWindows = "assets/bin/Windows_x64";
+List<String> programWindows = [
+  "ffmpeg.exe",
+  "yt-dlp.exe",
+  "avcodec-61.dll",
+  "avdevice-61.dll",
+  "avfilter-10.dll",
+  "avformat-61.dll",
+  "avutil-59.dll",
+  "postproc-58.dll",
+  "swresample-5.dll",
+  "swscale-8.dll",
+];
