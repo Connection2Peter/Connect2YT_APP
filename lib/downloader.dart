@@ -1,5 +1,6 @@
 import 'style.dart';
 import 'config.dart';
+import 'io/copy.dart';
 import 'io/exec.dart';
 import 'io/picker.dart';
 import 'ui/dialog.dart';
@@ -17,6 +18,12 @@ class YouTubeDownloader extends StatefulWidget {
 class _YouTubeDownloaderState extends State<YouTubeDownloader> {
   String saveFolder = "";
   TextEditingController urlInput = TextEditingController(text: "");
+
+  @override
+  void initState() {
+    copyFolder();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +72,7 @@ class _YouTubeDownloaderState extends State<YouTubeDownloader> {
       autofocus: true,
       controller: urlInput,
       onChanged: (value) {
+        if (value.isEmpty) saveFolder = "";
         setState(() {});
       },
       decoration: InputDecoration(

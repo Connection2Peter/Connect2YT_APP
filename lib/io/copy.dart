@@ -4,43 +4,40 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
 Future<void> copyFolder() async {
-  Directory dirTemp = await getTemporaryDirectory();
+  Directory dirTemp = await getApplicationCacheDirectory();
 
-  binFolder = '${dirTemp.path}\\$binFolder';
+  //print('Target Directory: ${dirTemp.path}');
 
-  Directory targetDir = Directory(binFolder);
-  if (!targetDir.existsSync()) {
-    targetDir.createSync(recursive: true);
-  }
+  binFolder = dirTemp.path;
 
-  await copyDirectoryRecursively(binWindows, binFolder);
-}
+  //print('binFolder: $binFolder');
 
-Future<void> copyDirectoryRecursively(String from, String to) async {
-  final directory = Directory(from);
+  for (String program in programWindows) {
+    String from = '$binWindows/$program';
+    String to = '$binFolder/$program';
 
-  if (await directory.exists()) {
-    await for (FileSystemEntity entity in directory.list(
-      recursive: true,
-      followLinks: false,
-    )) {
-      if (entity is File) {
-        String relativePath = entity.path.replaceFirst(from, '');
-
-        await movePrograms(entity.path, '$to\\$relativePath');
-      }
-    }
+    await movePrograms(from, to);
   }
 }
 
 Future<void> movePrograms(String from, String to, {bool doChmod = false}) async {
-  final bytes = await rootBundle.load(from);
+  try {
+    final bytes = await rootBundle.load(from);
 
-  await File(to).writeAsBytes(
-    bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes),
-  );
+    final file = File(to);
+    await file.create(recursive: true);
+    await file.writeAsBytes(
+      bytes.buffer.asUint8List(
+        bytes.offsetInBytes,
+        bytes.lengthInBytes,
+      ),
+    );
 
-  if (doChmod) {
-    await Process.run('chmod', ['+x', to]);
+    if (doChmod) {
+      await Process.run('chmod', ['+x', to]);
+    }
+    //print('File copied: $from -> $to');
+  } catch (e) {
+    //print('Error in movePrograms: $e');
   }
 }
