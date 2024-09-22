@@ -64,6 +64,20 @@ class _YouTubeDownloaderState extends State<YouTubeDownloader> {
           ),
         ),
       ),
+      bottomNavigationBar: IntrinsicHeight(
+        child: Container(
+          alignment: Alignment.center,
+          color: Colors.black,
+          padding: EdgeInsets.symmetric(vertical: 10),
+          child: Text(
+            "Connection Lee. Copyright © 2024 Video Downloader GUI. All rights reserved.",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
     );
   }
 
